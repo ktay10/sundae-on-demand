@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Options from "../Options";
 
-test("dispaly image of each scoop option from the Server", async () => {
+test("display image of each scoop option from the Server", async () => {
   render(<Options optionType={`scoops`} />);
 
   // find the image
@@ -10,4 +10,18 @@ test("dispaly image of each scoop option from the Server", async () => {
 
   const altTextArray = scoopImages.map((image) => image.alt);
   expect(altTextArray).toEqual(["Chocolate scoop", "Vanilla scoop"]); // when working with arrays or object equality → use toEqual; while in strings and numbers → use toBe
+});
+
+test("display image of each topping option from the Server", async () => {
+  render(<Options optionType="toppings" />);
+  const toppingImages = await screen.findAllByRole("img", {
+    name: /topping$/i,
+  });
+  expect(toppingImages).toHaveLength(3);
+  const altTextArray = toppingImages.map((image) => image.alt);
+  expect(altTextArray).toEqual([
+    "Cherries topping",
+    "M&Ms topping",
+    "Hot fudge topping",
+  ]);
 });
