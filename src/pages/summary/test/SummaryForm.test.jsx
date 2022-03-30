@@ -43,7 +43,7 @@ describe("chkBx interaction with the btn", () => {
     expect(popover).toBeInTheDocument();
 
     userEvent.unhover(lbl);
-    // use waitForElementToBeRemoved to wait for async actions as in this case of disappearing the Popver
+    // use waitForElementToBeRemoved to wait for async actions as in this case of disappearing the Popover
     await waitForElementToBeRemoved(() => screen.queryByText(/I agree/i));
   });
 });
