@@ -1,7 +1,7 @@
 /**
  *
- * @param {*} amount
- * @returns
+ * @param {number} amount
+ * @returns {string} number formatted as currency
  */
 export function formatCurrency(amount) {
   return new Intl.NumberFormat("en-US", {
