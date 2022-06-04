@@ -18,7 +18,7 @@ test("handle errors for scoops & toppings routes", async () => {
     )
   );
 
-  render(<OrderEntry />);
+  render(<OrderEntry setOrderPhase={jest.fn()} />);
 
   // Here we use waitFor because without it, there will be an error caused by that it gets executed once any one of the 2 alerts get to be rendered and does not wait for the other
   await waitFor(async () => {

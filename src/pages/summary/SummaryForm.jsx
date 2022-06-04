@@ -1,30 +1,54 @@
 import React, { useState } from "react";
-import { OverlayTrigger, Popover } from "react-bootstrap";
+import { Button, Form, OverlayTrigger, Popover } from "react-bootstrap";
+import { ORDER_PHASES } from "../../constants";
 
-const SummaryForm = () => {
+const SummaryForm = ({ setOrderPhase }) => {
   const [isChkBxChecked, setIsChkBxChecked] = useState(false);
 
-  const TermsAndConditions = () => (
-    <Popover id="popover-basic">
-      <Popover.Header as="h3">T&Cs</Popover.Header>
-      <Popover.Body>I agree</Popover.Body>
+  function handleSubmit(ev) {
+    ev.preventDefault();
+
+    // pass along to the next phase
+    // the next page will handle submitting order from context
+
+    setOrderPhase(ORDER_PHASES.COMPLETED);
+  }
+
+  const newPopover = (
+    <Popover id="termsandconditions-popover">
+      {/* <Popover.Content>No real ice cream will be delivered</Popover.Content> */}
+      <Popover.Body>No real ice cream will be delivered</Popover.Body>
     </Popover>
   );
 
   const onCheck = (e) => {
-    setIsChkBxChecked((prev) => !prev);
+    // setIsChkBxChecked((prev) => !prev);
+    setIsChkBxChecked(e.target.checked);
   };
 
-  return (
-    <div>
-      <OverlayTrigger trigger={"hover"} overlay={TermsAndConditions}>
-        <label>
-          <input type={"checkbox"} onChange={onCheck}></input>
-          {"Terms and Conditions"}
-        </label>
+  const checkBoxLabel = (
+    <span>
+      I agree to
+      <OverlayTrigger placement="right" overlay={newPopover}>
+        <span style={{ color: "blue" }}>Terms and Conditions</span>
       </OverlayTrigger>
-      <button disabled={!isChkBxChecked}>{`Confirm Order`}</button>
-    </div>
+    </span>
+  );
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="terms-and-conditions">
+        <Form.Check
+          type="checkbox"
+          checked={isChkBxChecked}
+          onChange={onCheck}
+          label={checkBoxLabel}
+        />
+      </Form.Group>
+      <Button variant="primary" type="submit" disabled={!isChkBxChecked}>
+        Confirm order
+      </Button>
+    </Form>
   );
 };
 

@@ -34,16 +34,21 @@ describe("chkBx interaction with the btn", () => {
 
   test("popover appears when hovering on the label. Then unhover", async () => {
     render(<SummaryForm />);
-    const nullPopover = screen.queryByText(/I agree/i);
+    const nullPopover = screen.queryByText(
+      /No real ice cream will be delivered/i
+    );
     expect(nullPopover).not.toBeInTheDocument();
 
-    const lbl = screen.getByText(/terms and conditions/i);
-    userEvent.hover(lbl);
-    const popover = screen.getByText(/I agree/i);
+    const termsAndConditions = screen.getByText(/terms and conditions/i);
+    userEvent.hover(termsAndConditions);
+
+    const popover = screen.getByText(/No real ice cream will be delivered/i);
     expect(popover).toBeInTheDocument();
 
-    userEvent.unhover(lbl);
+    userEvent.unhover(termsAndConditions);
     // use waitForElementToBeRemoved to wait for async actions as in this case of disappearing the Popover
-    await waitForElementToBeRemoved(() => screen.queryByText(/I agree/i));
+    await waitForElementToBeRemoved(() =>
+      screen.queryByText(/No real ice cream will be delivered/i)
+    );
   });
 });
