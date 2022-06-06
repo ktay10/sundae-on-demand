@@ -25,7 +25,7 @@ const OrderSummary = ({ setOrderPhase }) => {
       <h2>Scoops: {orderDetails.totals.scoops}</h2>
       <ul>{scoopList}</ul>
 
-      <h2>toppings: {orderDetails.totals.toppings}</h2>
+      <h2>Toppings: {orderDetails.totals.toppings}</h2>
       <ul>{toppingList}</ul>
 
       <SummaryForm setOrderPhase={setOrderPhase} />

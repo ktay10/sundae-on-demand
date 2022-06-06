@@ -30,11 +30,15 @@ export const handlers = [
           name: "Hot fudge",
           imagePath: "/images/hot-fudge.png",
         },
+        {
+          name: "Gummi Bears",
+          imagePath: "/images/gummi-bears.png",
+        },
       ])
     );
   }),
-  rest.post("http://localhost:3000/order", (req, res, ctx) => {
+  rest.post("http://localhost:3030/order", (req, res, ctx) => {
     const orderNumber = Math.floor(Math.random() * 10000000000);
-    res.status(201).json({ orderNumber });
+    return res(ctx.json({ orderNumber }));
   }),
 ];

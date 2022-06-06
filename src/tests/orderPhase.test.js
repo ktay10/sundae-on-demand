@@ -29,7 +29,7 @@ test("order phase for happy path", async () => {
 
   // find and click order btn
   const orderSummaryButton = screen.getByRole("button", {
-    name: /order summary/i,
+    name: /order sunday!/i,
   });
   userEvent.click(orderSummaryButton);
 
@@ -39,17 +39,17 @@ test("order phase for happy path", async () => {
   });
   expect(summaryHeading).toBeInTheDocument();
 
-  const scoopsHeading = screen.getByRole("heading", { name: /Scoops: $6.00/i });
+  const scoopsHeading = screen.getByRole("heading", { name: "Scoops: $6.00" });
   expect(scoopsHeading).toBeInTheDocument();
   const toppingsHeading = screen.getByRole("heading", {
-    name: /Toppings: $4.50/i,
+    name: "Toppings: $4.50",
   });
   expect(toppingsHeading).toBeInTheDocument();
 
   expect(screen.getByText("3 Vanilla")).toBeInTheDocument();
-  expect(screen.getByText("M&Ms")).toBeInTheDocument();
-  expect(screen.getByText("hot fudge")).toBeInTheDocument();
-  expect(screen.getByText("gummi bears")).toBeInTheDocument();
+  expect(screen.getByText("1 M&Ms")).toBeInTheDocument();
+  expect(screen.getByText(/1 hot fudge/i)).toBeInTheDocument();
+  expect(screen.getByText(/1 gummi bears/i)).toBeInTheDocument();
 
   // accept terms & conditions, click button to confirm order
   const termsAndConditionsCheckbox = screen.getByRole("checkbox", {
@@ -63,7 +63,7 @@ test("order phase for happy path", async () => {
 
   // confirm order # in confirmation page
   const thankYouHeader = await screen.findByRole("header", {
-    name: /thank you/i,
+    name: /thank you!/i,
   });
   expect(thankYouHeader).toBeInTheDocument();
   const orderNumber = screen.getByText(/order number/i);
